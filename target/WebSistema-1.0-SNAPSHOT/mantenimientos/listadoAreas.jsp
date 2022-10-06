@@ -1,6 +1,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+HttpSession misession= (HttpSession) request.getSession();
+String usuario= (String) misession.getAttribute("usuario");  
+if(misession == null || misession.getAttribute("usuario") == null){
+      out.print("<link rel=\"stylesheet\" \n"
+                + "              href=\"webjars/bootstrap/5.1.0/css/bootstrap.min.css\" type=\"text/css\" />");
+      out.println("<center>");           
+      out.println("<h3>No tiene permisos para acceder a esta seccion</h3>");
+      out.println("<a class='btn btn-primary' href='/WebSistema/index.html'>Ir a pagina de acceso</a>");
+      out.println("</center>");
+      return;
+  }    
+%>
 <html>
     <head>
         <link rel="stylesheet" 
@@ -40,6 +53,8 @@
                 </table>
             </form>
         </div>
+        <h3>Usuario Logeado: <b><% out.print(usuario); %></b></h3>
+            <h3><a class='btn btn-danger' href="/WebSistema/ServletSesion">Cerrar Sesion</a></h3>
     </body>
 </html>
 
